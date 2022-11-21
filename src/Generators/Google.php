@@ -24,7 +24,7 @@ class Google implements Generator
         $utcEndDateTime = (clone $link->to)->setTimezone(new DateTimeZone('UTC'));
         $dateTimeFormat = $link->allDay ? $this->dateFormat : $this->dateTimeFormat;
         $url .= '&dates='.$utcStartDateTime->format($dateTimeFormat).'/'.$utcEndDateTime->format($dateTimeFormat);
-        
+
         // Add timezone name if it is specified in both from and to dates and is the same for both
         if (
             $link->from->getTimezone() && $link->to->getTimezone()
@@ -41,6 +41,10 @@ class Google implements Generator
 
         if ($link->address) {
             $url .= '&location='.urlencode($link->address);
+        }
+
+        if ($link->rrule) {
+            $url .= '&recur='.urlencode($link->rrule);
         }
 
         return $url;

@@ -37,6 +37,9 @@ class Link
     /** @var string */
     protected $address;
 
+    /** @var string */
+    protected $rrule;
+
     public function __construct(string $title, \DateTimeInterface $from, \DateTimeInterface $to, bool $allDay = false)
     {
         $this->title = $title;
@@ -100,6 +103,22 @@ class Link
     public function address(string $address)
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @param string $rrule
+     *
+     * @return $this
+     */
+    public function rrule(string $rrule)
+    {
+        // Add 'RRULE:' if it was not passed in the string.
+        if (strpos('RRULE:', $rrule) === FALSE) {
+            $rrule = 'RRULE:'.$rrule;
+        }
+        $this->rrule = $rrule;
 
         return $this;
     }

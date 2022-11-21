@@ -52,6 +52,9 @@ class Ics implements Generator
         if ($link->address) {
             $url[] = 'LOCATION:'.$this->escapeString($link->address);
         }
+        if ($link->rrule) {
+            $url[] = $this->escapeString($link->rrule);
+        }
 
         if (isset($this->options['URL'])) {
             $url[] = 'URL;VALUE=URI:'.$this->options['URL'];
